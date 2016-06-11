@@ -1,7 +1,6 @@
 var ObjectId, User, model;
 
 model = require('../util/database').schemas;
-
 ObjectId = require('mongoose').Schema.Types.ObjectId;
 
 User = model["class"]('User', {
