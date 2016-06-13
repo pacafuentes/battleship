@@ -1,18 +1,15 @@
-var WebSocket = require('ws');
+var Game = require('../models/game');
 
 module.exports = {
-  ws: function (req, res) {
-    var ws = new WebSocket('ws://www.localhost:3000');
+  create: function (req, res) {
+    var gameInfo = {
+        
+    };
 
-    ws.on('open', function open() {
-      ws.send('something');
+    var game = new Game(gameInfo);
+    game.save(function (err, game) {
+      if(err) console.log(err);
     });
-
-    ws.on('message', function(data, flags) {
-      // flags.binary will be set if a binary data is received.
-      // flags.masked will be set if the data was masked.
-    });
-
     res.render('index', { title: 'Express' });
   }
 };

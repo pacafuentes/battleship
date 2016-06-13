@@ -1,14 +1,19 @@
-module.exports =  {
-  handler : function (socket) {
-    console.log("User connected");
-    socket.emit('news', {hello: 'world'});
+var Game = require('./models/game');
+var User = require('./models/user');
+var Board = require('./models/board');
 
-    socket.on('my other event', function (from, msg) {
-      console.log('I received a private message by ', from, ' saying ', msg);
+var games;
+
+io =  {
+  handler : function (socket) {
+    socket.on('addShip', function (data) {
+
     });
 
-    socket.on('turn', function (from, msg) {
-      console.log(msg);
+    socket.on('shot', function (data) {
+      
     });
   }
 };
+
+module.exports = io;
