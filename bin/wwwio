@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('battleship:server');
 var http = require('http');
+var ws = require('../io');
 
 /**
  * Get port from environment and store in Express.
@@ -26,20 +27,7 @@ var server = http.createServer(app);
  */
 var io = require('socket.io')(server);
 
-io.on('connection', function (socket) {
-  console.log("User connected");
-  socket.emit('news', { hello: 'world' });
-  
-  socket.on('my other event', function (from, msg) {
-    console.log('I received a private message by ', from, ' saying ', msg);
-  });
-
-  socket.on('turn', function(from , msg){
-    console.log(msg);
-  });
-});
-
-
+io.on('connection', ws.handler);
 
 /**
  * Listen on provided port, on all network interfaces.
