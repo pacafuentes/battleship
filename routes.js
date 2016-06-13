@@ -6,4 +6,8 @@ controllers = require('./controllers/user');
 
 router.get('/user', controllers.create);
 
+router.get('/', function (req, res) {
+  res.render('index', { title: 'Express' });
+});
+
 module.exports = router;
