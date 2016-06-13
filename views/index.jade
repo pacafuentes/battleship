@@ -1,7 +1,72 @@
 extends layout
+block scripts
+  script(type='text/javascript').
+    function logFb() {
+      FB.login(function(response) {
+        if(response.status == 'connected'){
+          FB.api('/me' ,{fields: 'email, first_name,last_name'}, function(response) {
+            document.getElementById('email').value = response.email.toString();
+            document.getElementById('name').value = response.first_name.toString();
+            document.getElementById('surname').value = response.last_name.toString();
+            document.getElementById('submiter').click();
+
+
+          });
+        }
+      }, {scope: 'email'});
+    }
+    function logUser(){
+      FB.getLoginStatus(function(response) {
+        statusChanged(response);
+      });
+    }
+    function statusChanged(response){
+      if (response.status === 'connected') {
+        FB.api('/me?fields=first_name,last_name,birthday,email', function(response) {
+          console.log(JSON.stringify(response));
+          console.log(response.last_name);
+          var userInfo ={
+            userName: response.email,
+            firstName: response.fist_name,
+            lastName: response.last_name
+          };
+          var user = new User(userInfo)
+          var user = new User(userInfo);
+          user.save(function (err, user) {
+            if (err) console.log(err);
+          });
+          res.render('index', {title: 'BattleShip'});
+        });
+      }
+    }
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '276619449363651',
+        xfbml      : true,
+        version    : 'v2.6',
+        status     : true
+      });
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/es_LA/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
 block content
   script(src="/socket.io/socket.io.js")
   script(src="/javascripts/socket.js")
-  h1= title
-  p Welcome to #{title}
+  nav
+    a(class="brand-logo" href="#") Battleship
+    ul(id="nav-mobile" class="right hide-on-med-and-down")
+      li: a(href="#") Home
+      li: a(href="/about") About
+      li: a(href="#") Rules
+
+
+  h1(id="home") Welcome to Battleship!
+
+  button(type='submit', onclick='logFb()', class="fb") Ingresar con Facebook

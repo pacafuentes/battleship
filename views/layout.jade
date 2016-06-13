@@ -2,6 +2,10 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" type="text/css" rel="styleSheet")
+    link(href="/stylesheets/style.css" type="text/css" rel="styleSheet")
+    script(href="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.8/angular-materialize.min.js")
+
+  block scripts
   body
     block content
