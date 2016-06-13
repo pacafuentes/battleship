@@ -30,7 +30,6 @@ block scripts
             firstName: response.fist_name,
             lastName: response.last_name
           };
-          var user = new User(userInfo)
           var user = new User(userInfo);
           user.save(function (err, user) {
             if (err) console.log(err);
