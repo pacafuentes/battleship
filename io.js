@@ -11,7 +11,7 @@ io =  {
     });
 
     socket.on('shot', function (data) {
-      
+      socket.emit('hit', 'hundido')
     });
   }
 };

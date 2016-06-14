@@ -2,9 +2,9 @@ var express, controllers, router;
 
 express = require('express');
 router = express.Router();
-controllers = require('./controllers/user');
+controllers = require('./controllers');
 
-router.get('/user', controllers.create);
+router.get('/game', controllers.game.create);
 
 router.get('/', function (req, res) {
   res.render('index', { title: 'Battleship' });
