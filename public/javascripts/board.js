@@ -1,5 +1,4 @@
 (function() {
-  //noinspection JSUnresolvedFunction
   angular.module('app', [])
     .directive('board', [function () {
       return {
@@ -10,6 +9,7 @@
         link: function($scope) {
           var createTable = function () {
             var tableSize = 10;
+
             var tBody = document.getElementById($scope.id).childNodes[0].childNodes[0];
             var headTr = document.createElement("TR");
             headTr.appendChild(document.createElement("TH"));
@@ -38,7 +38,7 @@
           createTable()
         },
         template: '<table>' +
-            '<tbody class="board">' +
+            '<tbody class="table-body">' +
             '</tbody>' +
           '</table>'
       }
@@ -53,6 +53,11 @@
       console.log('x: ' + pointer.pageX + ' - y: ' + pointer.pageY);
       console.log(document.elementsFromPoint(pointer.pageX - window.pageXOffset, pointer.pageY - window.pageYOffset)[1]);
     });
+
+    draggie.on('staticClick', function (event, pointer) {
+      var className = event.srcElement.className;
+      event.srcElement.className = className.indexOf("rotate") > -1 ? className.substring(0, className.indexOf("rotate")) : className + " rotate";
+    })
   }
 
 }).call(this);
