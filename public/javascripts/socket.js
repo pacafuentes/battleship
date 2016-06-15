@@ -11,7 +11,3 @@ socket.on('shipAdded', function (data) {
 socket.on('finish', function (data) {
   
 });
-
-socket.on('msg', function (data) {
-  
-});
