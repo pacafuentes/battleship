@@ -38,21 +38,21 @@
           createTable()
         },
         template: '<table>' +
-          '<tbody class="board">' +
-          '</tbody>' +
+            '<tbody class="board">' +
+            '</tbody>' +
           '</table>'
       }
     }]);
 
-  var draggie = new Draggabilly( '.draggable', {
-    containment: '.board'
-  });
-
-  draggie.on('dragEnd', function(event, pointer) {
-    console.log('x: ' + event.screenX + ' - y: '+  event.screenY);
-    console.log(document.elementFromPoint(pointer.pageX , pointer.pageY));
-  });
-
-
+  var draggableElems = document.querySelectorAll('.draggable');
+  var draggies = [];
+  for ( var i=0, len = draggableElems.length; i < len; i++ ) {
+    var draggableElem = draggableElems[i];
+    var draggie = new Draggabilly(draggableElem, { containment: '.board' });
+    draggie.on('dragEnd', function (event, pointer) {
+      console.log('x: ' + pointer.pageX + ' - y: ' + pointer.pageY);
+      console.log(document.elementsFromPoint(pointer.pageX - window.pageXOffset, pointer.pageY - window.pageYOffset)[1]);
+    });
+  }
 
 }).call(this);

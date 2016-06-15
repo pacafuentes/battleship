@@ -27,15 +27,40 @@ nav{
   margin-top: 8%;
 }
 
-table > tbody > tr > th {
-  width: 60px;
+table > tbody >tr > th {
+  width: 35px;
 }
 
-table > tbody > tr {
-  height: 75px;
+table > tbody >tr {
+  height: 50px;
 }
 
-.draggable {
-  height: 40px;
-  width: 40px;
+#ship1 {
+  width: 213px;
+  height: 31px;
+}
+
+#ship2 {
+  width: 173px;
+  height: 54px;
+}
+
+#ship3 {
+  width: 125px;
+  height: 42px;
+}
+
+#ship4 {
+  width: 143px;
+  height: 49px;
+}
+
+#ship5 {
+  width: 71px;
+  height: 41px;
+}
+
+#ship6 {
+  width: 170px;
+  height: 56px;
 }
