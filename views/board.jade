@@ -11,9 +11,14 @@ block content
     img.draggable(src="/images/ship5.png" id="ship5")
     img.draggable(src="/images/ship6.png" id="ship6")
     board(id="myBoard")
+      table
+        tbody.board
+
     button ready
 
 block scripts
   script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js")
   script(src="https://npmcdn.com/draggabilly@2.1/dist/draggabilly.pkgd.min.js")
   script(src="/javascripts/board.js")
+  script(src="/socket.io/socket.io.js")
+  script(src="/javascripts/socket.js")
