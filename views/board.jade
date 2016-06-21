@@ -4,17 +4,21 @@ block styles
 
 block content
   div.container(ng-app="app" ng-controller="boardCtrl")
-    img(src="/images/ship1.png" id="ship1" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 500}" jqyoui-draggable="{animate: true}")
-    img(src="/images/ship2.png" id="ship2" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
-    img(src="/images/ship3.png" id="ship3" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
-    img(src="/images/ship4.png" id="ship4" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
-    img(src="/images/ship5.png" id="ship5" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
-    img(src="/images/ship6.png" id="ship6" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
-    board(id="myBoard")
-      table
-        tbody.board
+    table(id="myBoard")
+      tbody.board
 
-    button ready
+    div.ship-container
+      img(src="/images/ship1.png" class="ship" id="ship1" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
+    div.ship-container
+      img(src="/images/ship2.png" class="ship" id="ship2" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
+    div.ship-container
+      img(src="/images/ship3.png" class="ship" id="ship3" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
+    div.ship-container
+      img(src="/images/ship4.png" class="ship" id="ship4" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
+    div.ship-container
+      img(src="/images/ship5.png" class="ship" id="ship5" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
+    div.ship-container
+      img(src="/images/ship6.png" class="ship" id="ship6" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200}" jqyoui-draggable="{animate: true}")
 
 block scripts
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
@@ -23,5 +27,6 @@ block scripts
   script(src="javascripts/external/angular-dragdrop.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.js")
   script(src="/javascripts/board.js")
+  script(src="/javascripts/app.js")
   script(src="/socket.io/socket.io.js")
   script(src="/javascripts/socket.js")
