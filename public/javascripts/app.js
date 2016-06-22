@@ -25,18 +25,17 @@ angular.module('app', ['ngDragDrop', 'ui.bootstrap'])
         if (e.srcElement.style.top != 0 && e.srcElement.style.left != 0) {
           var className = e.srcElement.className;
           var style = e.srcElement.style;
-          var left = parseInt(style.left.substr(0, style.left.indexOf('p')));
-          var top = parseInt(style.top.substr(0, style.top.indexOf('p')));
 
           //when rotate change relative position so angular drag n drop can do his magic
+          var start;
           if (className.indexOf("rotate") > -1) {
-            e.srcElement.className = className.substring(0, className.indexOf("rotate") - 1);
-            e.srcElement.style.top = String(top + ((e.srcElement.width - e.srcElement.height) / 2)) + 'px';
-            e.srcElement.style.left = String(left - ((e.srcElement.width - e.srcElement.height) / 2)) + 'px';
+            e.srcElement.className = className.substring(0, className.indexOf("rotated") - 1);
+            start = e.srcElement.src.indexOf('ship');
+            e.srcElement.src = '/images/' + e.srcElement.src.substring(start, start + 5) + '.png';
           } else {
-            e.srcElement.className = className + " rotate";
-            e.srcElement.style.top = String(top - ((e.srcElement.width - e.srcElement.height) / 2)) + 'px';
-            e.srcElement.style.left = String(left + ((e.srcElement.width - e.srcElement.height) / 2)) + 'px';
+            e.srcElement.className = className + " rotated";
+            start = e.srcElement.src.indexOf('ship');
+            e.srcElement.src = '/images/' + e.srcElement.src.substring(start, start + 5) + '-rotated.png';
           }
 
           var tablePosition = document.getElementById("myBoard").getBoundingClientRect();
@@ -50,8 +49,8 @@ angular.module('app', ['ngDragDrop', 'ui.bootstrap'])
           var shipTop = e.srcElement.getBoundingClientRect().top;
           var shipBottom = e.srcElement.getBoundingClientRect().bottom;
 
-          left = parseInt(style.left.substr(0, style.left.indexOf('p')));
-          top = parseInt(style.top.substr(0, style.top.indexOf('p')));
+          var left = parseInt(style.left.substr(0, style.left.indexOf('p')));
+          var top = parseInt(style.top.substr(0, style.top.indexOf('p')));
 
           if (shipLeft < minX) e.srcElement.style.left = String(left + minX - shipLeft) + 'px';
           if (shipRight > maxX) e.srcElement.style.left = String(left - (shipRight - maxX)) + 'px';
