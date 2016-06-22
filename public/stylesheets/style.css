@@ -8,7 +8,7 @@ a {
 }
 
 table > tbody >tr > th {
-  width: 35px;
+  width: 50px;
 }
 
 table > tbody >tr {
@@ -20,62 +20,62 @@ table > tbody >tr {
 }
 
 .ship.one {
-  width: 213px;
-  height: 31px;
+  width: 200px;
+  height: 50px;
 }
 
 .ship.one.rotated {
-  width: 31px;
-  height: 213px;
+  width: 50px;
+  height: 200px;
 }
 
 .ship.two {
-  width: 173px;
-  height: 54px;
+  width: 150px;
+  height: 50px;
 }
 
 .ship.two.rotated {
-  width: 54px;
-  height: 173px;
+  width: 50px;
+  height: 150px;
 }
 
 .ship.three {
-  width: 125px;
-  height: 42px;
+  width: 100px;
+  height: 50px;
 }
 
 .ship.three.rotated {
-  width: 42px;
-  height: 125px;
+  width: 50px;
+  height: 100px;
 }
 
 .ship.four {
-  width: 143px;
-  height: 49px;
+  width: 150px;
+  height: 50px;
 }
 
 .ship.four.rotated {
-  width: 49px;
-  height: 143px;
+  width: 50px;
+  height: 150px;
 }
 
 .ship.five {
-  width: 71px;
-  height: 41px;
+  width: 100px;
+  height: 50px;
 }
 
 .ship.five.rotated {
-  width: 41px;
-  height: 71px;
+  width: 50px;
+  height: 100px;
 }
 
 .ship.six {
-  width: 170px;
-  height: 56px;
+  width: 150px;
+  height: 50px;
 }
 
 .ship.six.rotated {
-  width: 56px;
-  height: 170px;
+  width: 50px;
+  height: 150px;
 }
 

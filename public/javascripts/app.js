@@ -1,5 +1,6 @@
 angular.module('app', ['ngDragDrop', 'ui.bootstrap'])
   .controller('boardCtrl', function($scope, $q) {
+
     $scope.beforeDrop = function (e) {
       var tablePosition = document.getElementById("myBoard").getBoundingClientRect();
       var minX = tablePosition.left + 37;
