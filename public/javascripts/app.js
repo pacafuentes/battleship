@@ -2,6 +2,7 @@ angular.module('app', ['ngDragDrop', 'ui.bootstrap'])
   .controller('boardCtrl', function($scope, $q) {
 
     $scope.beforeDrop = function (e) {
+
       var tablePosition = document.getElementById("myBoard").getBoundingClientRect();
       var minX = tablePosition.left + 37;
       var maxX = tablePosition.right;
@@ -14,10 +15,45 @@ angular.module('app', ['ngDragDrop', 'ui.bootstrap'])
       var shipBottom = e.toElement.getBoundingClientRect().bottom;
 
       var defer = $q.defer();
+      //check if ship is out of the board
       if (shipLeft < minX || shipRight > maxX || shipTop < minY || shipBottom > maxY) defer.reject();
-      else defer.resolve();
+      else {
+        //if is in the board checks if the cell is not occupied by other ship
+        var topLeftCell = document.elementsFromPoint(shipLeft + 25, shipTop + 25)[1];
+        var botRightCell = document.elementsFromPoint(shipRight - 25, shipBottom - 25)[1];
+
+        if (e.toElement.className.includes('rotated')) {
+          var cellToCheck = ((shipBottom - shipTop) / 50) - 2;
+          for(var i = 1; i <= cellToCheck; i++) {
+            var middleCell = document.elementsFromPoint(shipLeft + 25, shipTop + (50 * i) + 25)[1];
+            if (middleCell.tagName == "IMG") {
+              defer.reject();
+              return defer.promise;
+            }
+          }
+        } else {
+          var cellToCheck = ((shipRight - shipLeft) / 50) - 2;
+          for(var i = 1; i <= cellToCheck; i++) {
+            var middleCell = document.elementsFromPoint(shipLeft + (50 * i) + 25, shipTop + 25)[1];
+            if (middleCell.tagName == "IMG") {
+              defer.reject();
+              return defer.promise;
+            }
+          }
+        }
+
+        if (topLeftCell.tagName == "IMG" || botRightCell.tagName == "IMG") {
+          defer.reject();
+          return defer.promise;
+        }
+        defer.resolve();
+      }
 
       return defer.promise;
+    };
+
+    var isAValidPosition = function(shipLeft, shipRight, shipTop, shipBottom) {
+
     };
 
     var ships = document.getElementsByClassName('ship');
