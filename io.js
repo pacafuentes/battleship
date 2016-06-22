@@ -4,6 +4,7 @@ var Board = require('./models/board');
 
 var board1;
 var board2;
+var turn = '2';
 
 io =  {
   handler : function (socket) {
@@ -16,7 +17,8 @@ io =  {
           ships: data.ships
         };
 
-        var board1 = new Board(boardInfo);
+        board1 = new Board(boardInfo);
+        socket.emit('msg', 'waiting for opponent');
         console.log(board1);
       } else {
         var boardInfo = {
@@ -26,13 +28,15 @@ io =  {
           ships: data.ships
         };
 
-        var board2 = new Board(boardInfo);
+        board2 = new Board(boardInfo);
+        socket.emit('msg', 'your turn!');
         console.log(board2);
       }
     });
 
     socket.on('shot', function (data) {
-      socket.emit('hit', 'hundido')
+
+      socket.emit('msg', 'hundido')
     });
   }
 };
