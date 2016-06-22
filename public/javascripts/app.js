@@ -1,5 +1,5 @@
 angular.module('app', ['ngDragDrop', 'ui.bootstrap'])
-  .controller('boardCtrl', function($scope, $q) {
+  .controller('boardCtrl', function($scope, $q, $http) {
 
     $scope.beforeDrop = function (e) {
 
@@ -52,10 +52,6 @@ angular.module('app', ['ngDragDrop', 'ui.bootstrap'])
       return defer.promise;
     };
 
-    var isAValidPosition = function(shipLeft, shipRight, shipTop, shipBottom) {
-
-    };
-
     var ships = document.getElementsByClassName('ship');
     for (var i = 0; i < ships.length; i++) {
       ships[i].addEventListener('dblclick', function(e) {
@@ -96,4 +92,58 @@ angular.module('app', ['ngDragDrop', 'ui.bootstrap'])
         }
       });
     }
+    
+    
+    document.getElementById('readyBtn').addEventListener('click', function(e){
+      var ships = document.getElementsByClassName('ship');
+
+      for (var i = 0; i < ships.length; i++) {
+        $('#' + ships[i].id).draggable( "option", "disabled", true );;
+      }
+
+      var ship1 = document.getElementById('ship1');
+      var ship2 = document.getElementById('ship2');
+      var ship3 = document.getElementById('ship3');
+      var ship4 = document.getElementById('ship4');
+      var ship5 = document.getElementById('ship5');
+      var ship6 = document.getElementById('ship6');
+
+      var ship1Position = {
+        front: document.elementsFromPoint(ship1.getBoundingClientRect().left + 25, ship1.getBoundingClientRect().top + 25)[1].id,
+        end: document.elementsFromPoint(ship1.getBoundingClientRect().right - 25, ship1.getBoundingClientRect().bottom - 25)[1].id
+      };
+
+      var ship2Position = {
+        front: document.elementsFromPoint(ship2.getBoundingClientRect().left + 25, ship2.getBoundingClientRect().top + 25)[1].id,
+        end: document.elementsFromPoint(ship2.getBoundingClientRect().right - 25, ship2.getBoundingClientRect().bottom - 25)[1].id
+      };
+
+      var ship3Position = {
+        front: document.elementsFromPoint(ship3.getBoundingClientRect().left + 25, ship3.getBoundingClientRect().top + 25)[1].id,
+        end: document.elementsFromPoint(ship3.getBoundingClientRect().right - 25, ship3.getBoundingClientRect().bottom - 25)[1].id
+      };
+
+      var ship4Position = {
+        front: document.elementsFromPoint(ship4.getBoundingClientRect().left + 25, ship4.getBoundingClientRect().top + 25)[1].id,
+        end: document.elementsFromPoint(ship4.getBoundingClientRect().right - 25, ship4.getBoundingClientRect().bottom - 25)[1].id
+      };
+
+      var ship5Position = {
+        front: document.elementsFromPoint(ship5.getBoundingClientRect().left + 25, ship5.getBoundingClientRect().top + 25)[1].id,
+        end: document.elementsFromPoint(ship5.getBoundingClientRect().right - 25, ship5.getBoundingClientRect().bottom - 25)[1].id
+      };
+
+      var ship6Position = {
+        front: document.elementsFromPoint(ship6.getBoundingClientRect().left + 25, ship6.getBoundingClientRect().top + 25)[1].id,
+        end: document.elementsFromPoint(ship6.getBoundingClientRect().right - 25, ship6.getBoundingClientRect().bottom - 25)[1].id
+      };
+
+      var data = [ship1Position, ship2Position, ship3Position, ship4Position, ship5Position, ship6Position];
+
+      // $http.post('/game/board', data).then(function(response) {
+      //   console.log('Ok')
+      // })
+
+      socket.emit('addShips', {ships: data, user: 'paca'});
+    });
   });

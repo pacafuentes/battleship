@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cookieSession = require('cookie-session');
 
 var routes = require('./routes');
 
@@ -29,6 +30,11 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}));
 
 // error handlers
 
