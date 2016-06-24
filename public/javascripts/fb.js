@@ -6,25 +6,19 @@ function statusChangeCallback(response) {
   // for FB.getLoginStatus().
   if (response.status === 'connected') {
     // Logged into your app and Facebook.
-    FB.api('/me', function(response) {
+    FB.api('/me', {fields: 'id, first_name, last_name'},function(response) {
       var form = document.createElement("form");
       form.setAttribute("method", "post");
       form.setAttribute("action", "/login");
 
-      var name = document.createElement("input");
-      name.setAttribute("type", "hidden");
-      name.setAttribute("name", "username");
-      name.setAttribute("value", response.name);
+      for(var key in response) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", key);
+        input.setAttribute("value", response[key]);
 
-      form.appendChild(name);
-
-      var id = document.createElement("input");
-      id.setAttribute("type", "hidden");
-      id.setAttribute("name", "username");
-      id.setAttribute("value", response.name);
-
-      form.appendChild(id);
-
+        form.appendChild(input); 
+      }
       document.body.appendChild(form);
       form.submit();
     });

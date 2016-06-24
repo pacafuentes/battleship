@@ -1,6 +1,6 @@
-var Game = require('./models/game');
-var User = require('./models/user');
-var Board = require('./models/board');
+var Game = require('./models/Game');
+var User = require('./models/User');
+var Board = require('./models/Board');
 
 var board1;
 var board2;

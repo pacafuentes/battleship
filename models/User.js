@@ -5,7 +5,7 @@ ObjectId = require('mongoose').Schema.Types.ObjectId;
 
 User = model["class"]('User', {
   attributes: {
-    username: {
+    id: {
       type: String,
       unique: true,
       required: true

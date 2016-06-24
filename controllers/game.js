@@ -1,4 +1,4 @@
-var Game = require('../models/game');
+var Game = require('../models/Game');
 
 module.exports = {
   create: function (req, res) {

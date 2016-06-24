@@ -1,22 +1,29 @@
-User = require('../models/user');
+User = require('../models/User');
 
 module.exports = {
-  create: function (req, res) {
-    // var userInfo = {
-    //   username: "Paca21",
-    //   firstName: "Santiago",
-    //   lastName: "Fuents",
-    //   played: 3,
-    //   won: 3
-    // };
-    //
-    // var user = new User(userInfo);
-    // user.save(function (err, user) {
-    //   if(err) console.log(err);
-    // });
+  login: function (req, res) {
+    User.findOne({'id' : req.body.id}, function (err, user) {
+        if (!user) {
+          var userInfo = {
+            id : req.body.id,
+            firstName: req.body.first_name,
+            lastName: req.body.last_name,
+            played: 0,
+            won: 0
+          };
 
-    console.log(req.body.name + ' ' + req.body.id);
-    res.render('board');
+          user = new User(userInfo);
+          user.save(function (err) {
+            if(err) {
+              console.log(err);
+              return res.sendStatus(500);
+            }
+            return res.render('board');
+          });
+        }
+
+        return res.render('board');
+    });
   }
 };
 
