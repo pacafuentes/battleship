@@ -17,6 +17,9 @@ User = model["class"]('User', {
     lastName: {
       type: String
     },
+    picture: {
+      type: String
+    },
     currentGame: {
       type: ObjectId
     },

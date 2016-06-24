@@ -8,6 +8,7 @@ module.exports = {
             id : req.body.id,
             firstName: req.body.first_name,
             lastName: req.body.last_name,
+            picture: req.body.picture,
             played: 0,
             won: 0
           };
@@ -18,11 +19,11 @@ module.exports = {
               console.log(err);
               return res.sendStatus(500);
             }
-            return res.render('board');
+            return res.render('home');
           });
         }
 
-        return res.render('board');
+        return res.render('home');
     });
   }
 };
