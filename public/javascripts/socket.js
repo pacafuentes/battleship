@@ -9,5 +9,5 @@ socket.on('shipAdded', function (data) {
 });
 
 socket.on('msg', function (data) {
-  console.log(data);
+  document.getElementById('msg').innerText = data;
 });

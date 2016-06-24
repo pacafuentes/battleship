@@ -3,12 +3,15 @@ extends layout
 block styles
 
 block content
-  div.container(ng-app="app" ng-controller="boardCtrl")
-    table(id="myBoard")
-      tbody.board
+  div(id='msg')
+  div.container(ng-app="board" ng-controller="boardCtrl")
+    button(id="readyBtn") ready!
+    div
+      table(id="myBoard")
+        tbody.board
 
-    table(id="enemyBoard")
-      tbody.board
+      table(id="enemyBoard")
+        tbody.board
 
     div(style="width: 200px; height: 50px;")
       img(src="/images/ship1.png" class="ship one" id="ship1" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200, grid: [55, 52], snap: true}" jqyoui-draggable="{animate: true}")
@@ -22,7 +25,7 @@ block content
       img(src="/images/ship5.png" class="ship five" id="ship5" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200, grid: [55, 52], snap: true}" jqyoui-draggable="{animate: true}")
     div(style="width: 150px; height: 50px;")
       img(src="/images/ship6.png" class="ship six" id="ship6" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200, grid: [55, 52], snap: true}" jqyoui-draggable="{animate: true}")
-    button(id="readyBtn") ready!
+
 
 block scripts
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
@@ -30,7 +33,7 @@ block scripts
   script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js")
   script(src="javascripts/external/angular-dragdrop.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.js")
+  script(src="/javascripts/boardMaker.js")
   script(src="/javascripts/board.js")
-  script(src="/javascripts/app.js")
   script(src="/socket.io/socket.io.js")
   script(src="/javascripts/socket.js")

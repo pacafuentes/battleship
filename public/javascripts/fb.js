@@ -1,14 +1,33 @@
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
-  console.log('statusChangeCallback');
-  console.log(response);
   // The response object is returned with a status field that lets the
   // app know the current login status of the person.
   // Full docs on the response object can be found in the documentation
   // for FB.getLoginStatus().
   if (response.status === 'connected') {
     // Logged into your app and Facebook.
-    testAPI();
+    FB.api('/me', function(response) {
+      var form = document.createElement("form");
+      form.setAttribute("method", "post");
+      form.setAttribute("action", "/login");
+
+      var name = document.createElement("input");
+      name.setAttribute("type", "hidden");
+      name.setAttribute("name", "username");
+      name.setAttribute("value", response.name);
+
+      form.appendChild(name);
+
+      var id = document.createElement("input");
+      id.setAttribute("type", "hidden");
+      id.setAttribute("name", "username");
+      id.setAttribute("value", response.name);
+
+      form.appendChild(id);
+
+      document.body.appendChild(form);
+      form.submit();
+    });
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
     document.getElementById('status').innerHTML = 'Please log ' +
@@ -32,7 +51,7 @@ function checkLoginState() {
 
 window.fbAsyncInit = function() {
   FB.init({
-    appId      : '{861614007276316}',
+    appId      : '861614007276316',
     cookie     : true,  // enable cookies to allow the server to access
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -65,14 +84,3 @@ window.fbAsyncInit = function() {
   js.src = "//connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
-// Here we run a very simple test of the Graph API after login is
-// successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
-  console.log('Welcome!  Fetching your information.... ');
-  FB.api('/me', function(response) {
-    console.log('Successful login for: ' + response.name);
-    document.getElementById('status').innerHTML =
-      'Thanks for logging in, ' + response.name + '!';
-  });
-}

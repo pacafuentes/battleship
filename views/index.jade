@@ -1,7 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(ng-app="index" ng-controller="indexCtrl")
+    h1= title
+    p Welcome to #{title}
+
+    fb:login-button(scope="public_profile,email" onlogin="checkLoginState();")
+    div(id="status")
 
 block scripts
+  script(src="/javascripts/fb.js")

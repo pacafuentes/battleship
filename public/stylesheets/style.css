@@ -15,6 +15,10 @@ table > tbody >tr {
   height: 50px;
 }
 
+table {
+  display: inline-block;
+}
+
 .sea {
   border: 1px solid black;
 }

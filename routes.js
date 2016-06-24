@@ -5,8 +5,10 @@ router = express.Router();
 controllers = require('./controllers');
 
 router.get('/', function (req, res) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Battleship!' });
 });
+
+router.post('/login', controllers.user.create);
 
 router.get('/game', controllers.game.create);
 
