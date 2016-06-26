@@ -5,7 +5,7 @@ socket.on('hit', function(data) {
 });
 
 socket.on('shipAdded', function (data) {
-  
+
 });
 
 socket.on('msg', function (data) {

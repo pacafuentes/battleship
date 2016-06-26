@@ -21,6 +21,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieSession({
+  secret: 'emma',
+  maxAge: 24*60*60*1000,
+  httpOnly: false
+}));
 
 app.use('/', routes);
 
@@ -31,10 +36,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}));
 
 // error handlers
 

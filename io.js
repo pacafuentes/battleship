@@ -8,8 +8,19 @@ var turn;
 var socket1;
 var socket2;
 
+var waitingSockets = [];
+
 io =  {
   handler : function (socket) {
+    if (waitingSockets.length == 0) {
+      socket.emit('waiting opponent');
+      waitingSockets.push(socket);
+    }
+    else {
+      socket.emit('battle');
+      waitingSockets.pop().emit('battle');
+    }
+
     socket.on('addShips', function (data) {
       if (!socket1) {
         socket1 = socket;

@@ -1,14 +1,14 @@
-User = require('../models/User');
+var User = require('../models/User');
 
 module.exports = {
   login: function (req, res) {
-    User.findOne({'id' : req.body.id}, function (err, user) {
+    User.findOne({'id' : req.body.userInfo.id}, function (err, user) {
         if (!user) {
           var userInfo = {
-            id : req.body.id,
-            firstName: req.body.first_name,
-            lastName: req.body.last_name,
-            picture: req.body.picture,
+            id : req.body.userInfo.id,
+            firstName: req.body.userInfo.first_name,
+            lastName: req.body.userInfo.last_name,
+            picture: req.body.userInfo.picture.data.url,
             played: 0,
             won: 0
           };
@@ -19,12 +19,15 @@ module.exports = {
               console.log(err);
               return res.sendStatus(500);
             }
-            return res.render('home');
           });
         }
-
-        return res.render('home');
+        req.session.user = user;
+        res.status(200).json({redirectTo: '/home'});
     });
+  },
+
+  home: function (req, res) {
+    res.render('home', {user:req.session.user});
   }
 };
 

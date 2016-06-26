@@ -1,7 +1,12 @@
-extends layout
+extends layout-auth
 
 block content
-  a(href="/game") Play!
-  
+  p Welcome
+    span=user.firstName
+  button(id="playButton") Play!
+
 block scripts
+  script(src="/socket.io/socket.io.js")
+  script(src="/javascripts/home/homeSocket.js")
+  script(src="/javascripts/home/home.js")
 

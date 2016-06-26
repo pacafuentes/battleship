@@ -7,20 +7,7 @@ function statusChangeCallback(response) {
   if (response.status === 'connected') {
     // Logged into your app and Facebook.
     FB.api('/me', {fields: 'id, first_name, last_name, picture'},function(response) {
-      var form = document.createElement("form");
-      form.setAttribute("method", "post");
-      form.setAttribute("action", "/login");
-
-      for(var key in response) {
-        var input = document.createElement("input");
-        input.setAttribute("type", "hidden");
-        input.setAttribute("name", key);
-        input.setAttribute("value", key == 'picture' ? response[key].data.url : response[key]);
-
-        form.appendChild(input); 
-      }
-      document.body.appendChild(form);
-      form.submit();
+      window.login(response);
     });
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
@@ -64,9 +51,9 @@ window.fbAsyncInit = function() {
   //
   // These three cases are handled in the callback function.
 
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
+  // FB.getLoginStatus(function(response) {
+  //   statusChangeCallback(response);
+  // });
 
 };
 
