@@ -1,5 +1,5 @@
 var connectSocket = function () {
-  var socket = io().connect('http://localhost:3000');
+  var socket = io();
 
   socket.on('waiting opponent', function () {
     //show loading bar
@@ -8,6 +8,5 @@ var connectSocket = function () {
 
   socket.on('battle', function () {
     window.location.href = '/game'
-
   });
 };

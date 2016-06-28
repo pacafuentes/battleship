@@ -7,12 +7,10 @@ Mixed = require('mongoose').Schema.Types.Mixed;
 Board = model["class"]('Board', {
   attributes: {
     playerId: {
-      type: ObjectId,
-      required: true
+      type: String
     },
     gameId: {
-      type: ObjectId,
-      required: true
+      type: String
     },
     seenPositions: {
       type: Array

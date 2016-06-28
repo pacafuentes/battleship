@@ -23,8 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
   secret: 'emma',
-  maxAge: 24*60*60*1000,
-  httpOnly: false
+  maxAge: 24*60*60*1000
 }));
 
 app.use('/', routes);

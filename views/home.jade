@@ -1,8 +1,11 @@
 extends layout-auth
 
 block content
-  p Welcome
-    span=user.firstName
+  div
+    p Welcome
+      span=user.firstName
+  div
+    img(src!=user.picture)
   button(id="playButton") Play!
 
 block scripts

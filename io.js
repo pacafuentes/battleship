@@ -1,67 +1,67 @@
 var Game = require('./models/Game');
 var User = require('./models/User');
 var Board = require('./models/Board');
+var HashMap = require('hashmap');
+var Crypto = require("crypto");
 
-var board1;
-var board2;
-var turn;
-var socket1;
-var socket2;
+var games = new HashMap();
+var waitingSocket;
 
-var waitingSockets = [];
-
-io =  {
+var io =  {
   handler : function (socket) {
-    if (waitingSockets.length == 0) {
+    var session = socket.handshake.headers.cookie.split('session=')[1].split(';')[0];
+    var gameId = Crypto.randomBytes(10).toString('hex');
+    var player;
+
+    if (!waitingSocket) {
+      player = 1;
+      waitingSocket = {socket: socket, session: session, gameId: gameId};
       socket.emit('waiting opponent');
-      waitingSockets.push(socket);
-    }
-    else {
+    } else if (session != waitingSocket.session) {
+      player = 2;
+      gameId = waitingSocket.gameId;
+      games.set(gameId,{
+        player1: {
+          socket: waitingSocket.socket,
+          board: undefined
+        },
+        player2: {
+          socket: socket,
+          board: undefined
+        },
+        turn: 1
+      });
+      waitingSocket.socket.emit('battle');
       socket.emit('battle');
-      waitingSockets.pop().emit('battle');
+      waitingSocket = undefined;
     }
 
     socket.on('addShips', function (data) {
-      if (!socket1) {
-        socket1 = socket;
-        var boardInfo = {
-          playerId: '1',
-          gameId: '1',
-          seenPositions: [],
-          ships: data.ships
-        };
+      var boardInfo = {
+        seenPositions: [],
+        ships: data.ships
+      };
+      var board = new Board(boardInfo);
+      var game = games.get(gameId);
 
-        board1 = new Board(boardInfo);
-        socket.emit('msg', 'waiting for opponent');
-        console.log(board1);
+      if (player == 1) {
+        game.player1.board = board;
+        if (game.player2.board) {
+          game.player1.socket.emit('msg', 'your turn');
+          game.player2.socket.emit('msg', 'opponents turn');
+        } else game.player1.socket.emit('msg', 'waiting for opponent...');
       } else {
-        socket2 = socket;
-
-        var boardInfo = {
-          playerId: '2',
-          gameId: '1',
-          seenPositions: [],
-          ships: data.ships
-        };
-
-        board2 = new Board(boardInfo);
-        turn = 2;
-        socket2.emit('msg', 'your turn!');
-        console.log(board2);
+        game.player2.board = board;
+        if (game.player1.board) {
+          game.player1.socket.emit('msg', 'your turn');
+          game.player2.socket.emit('msg', 'opponents turn');
+        } else game.player2.socket.emit('msg', 'waiting for opponent');
       }
+
     });
 
     socket.on('shot', function (data) {
-      if (turn == 2) {
-        console.log(data);
-        socket1.emit('msg', 'your turn!');
-        socket2.emit('msg', 'waiting for opponent...');
-      } else if (turn == 1){
-        console.log(data);
-        socket2.emit('msg', 'your turn!');
-        socket1.emit('msg', 'waiting for opponent...');
-      }
-      turn = turn == 1 ? 2 : 1;
+
     });
   }
 };
