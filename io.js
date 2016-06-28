@@ -38,10 +38,10 @@ var io =  {
 
     socket.on('addShips', function (data) {
       var boardInfo = {
-        seenPositions: [],
-        ships: data.ships
+        seenPositions: []
       };
       var board = new Board(boardInfo);
+      board.populateBoard(data.ships);
       var game = games.get(gameId);
 
       if (player == 1) {
@@ -61,7 +61,15 @@ var io =  {
     });
 
     socket.on('shot', function (data) {
-
+      var shot = data.split('@')[1];
+      var shotResult;
+      if (player == 1 && games.get(gameId).turn == 1) {
+        shotResult = games.get(gameId).player2.board.hit(shot);
+        console.log(shotResult);
+      } else {
+        shotResult = games.get(gameId).player1.board.hit(shot);
+        console.log(shotResult);
+      }
     });
   }
 };

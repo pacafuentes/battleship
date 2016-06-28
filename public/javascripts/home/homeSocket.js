@@ -1,4 +1,5 @@
 var connectSocket = function () {
+  document.getElementById('playButton').removeEventListener('click', connectSocket);
   var socket = io();
 
   socket.on('waiting opponent', function () {

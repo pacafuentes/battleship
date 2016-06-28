@@ -16,16 +16,38 @@ Board = model["class"]('Board', {
       type: Array
     },
     ships: {
-      type: Mixed
+      type: Array
     }
   },
 
   methods: {
-    addShip: function(ship, bowPosition) {
-      //check if ship fit on the board
+    populateBoard: function(ships) {
+      for (var i = 0; i < ships.length; i++){
+        console.log(ships);
+        var ship = ships[i];
+        var frontLetter = ship.front[0];
+        var endLetter = ship.end[0];
+        var frontNumber = ship.front[1];
+        var endNumber = ship.end[1];
+        var shipPosition;
+
+        if (frontLetter == endLetter) {
+          shipPosition = [];
+          for(var j = frontNumber; j <= endNumber; j++){
+            shipPosition.push(frontLetter + String(j));
+          }
+          this.ships.push(shipPosition);
+        } else {
+          shipPosition = [];
+          for (var k = frontLetter.charCodeAt(0); k <= endLetter.charCodeAt(0); k++) {
+            shipPosition.push(String.fromCharCode(k) + frontNumber);
+          }
+          this.ships.push(shipPosition);
+        }
+      }
     },
     hit: function (position) {
-      //check if a ship is in position, returns hit, water, sunken (hundido)
+
     },
     getSeenPositions: function () {
       
