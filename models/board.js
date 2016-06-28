@@ -52,9 +52,9 @@ Board = model["class"]('Board', {
             this.ships[i].splice(j, 1);
             if (this.ships[i].length == 0) {
               this.ships.splice(i, 1);
-              return 'sink';
+              return this.ships.length == 0 ? 'won' : 'sink';
             }
-            return 'hit'
+            return 'hit';
           }
         }
       }

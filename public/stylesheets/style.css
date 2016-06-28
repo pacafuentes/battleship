@@ -23,6 +23,18 @@ table {
   border: 1px solid black;
 }
 
+.enemy {
+  background-color: #00b0ff;
+}
+
+.visited {
+  background-color: sandybrown;
+}
+
+.hit {
+  background-color: red;
+}
+
 .ship.one {
   width: 200px;
   height: 50px;

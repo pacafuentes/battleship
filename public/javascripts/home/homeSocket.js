@@ -4,7 +4,7 @@ var connectSocket = function () {
 
   socket.on('waiting opponent', function () {
     //show loading bar
-    console.log('waiting opponent')
+    document.getElementById('msg').innerText = 'searching an opponent to play'
   });
 
   socket.on('battle', function () {

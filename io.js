@@ -67,13 +67,13 @@ var io =  {
       if (player == 1 && game.turn == 1) {
         shotResult = game.player2.board.hit(shot);
         game.turn = 2;
-        game.player1.socket.emit(shotResult + ' enemy');
-        game.player2.socket.emit(shotResult + ' mine');
+        game.player1.socket.emit(shotResult + ' enemy', data);
+        game.player2.socket.emit(shotResult + ' mine', data);
       } else if (player == 2 && game.turn == 2) {
         shotResult = game.player1.board.hit(shot);
         game.turn = 1;
-        game.player1.socket.emit(shotResult + ' mine');
-        game.player2.socket.emit(shotResult + ' enemy');
+        game.player1.socket.emit(shotResult + ' mine', data);
+        game.player2.socket.emit(shotResult + ' enemy', data);
       }
     });
   }

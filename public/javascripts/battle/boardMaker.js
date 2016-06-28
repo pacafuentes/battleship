@@ -2,6 +2,7 @@
   var tableSize = 10;
   var i;
 
+  //my board
   var tBody = document.getElementById("myBoard").childNodes[0];
   var headTr = document.createElement("TR");
   //for first row
@@ -30,6 +31,7 @@
     tBody.appendChild(tr);
   }
 
+  //enemy board
   tBody = document.getElementById("enemyBoard").childNodes[0];
   headTr = document.createElement("TR");
   //for first row
@@ -50,10 +52,12 @@
     for(var j = 0; j < tableSize; j++) {
       var td = document.createElement("TD");
       td.id = '@' +String.fromCharCode(i + 65) + String(j);
-      td.setAttribute('class', 'sea');
-      td.addEventListener('click', function (e) {
+      td.setAttribute('class', 'sea enemy');
+      var clickFunction = function (e) {
         socket.emit('shot', e.srcElement.id);
-      });
+        e.srcElement.removeEventListener('click', this)
+      };
+      td.addEventListener('click', clickFunction);
       tr.appendChild(td);
     }
     tBody.appendChild(tr);

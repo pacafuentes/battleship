@@ -6,22 +6,25 @@ socket.on('msg', function (data) {
 
 socket.on('hit enemy', function(data) {
   document.getElementById('msg').innerText = 'you hit an enemy boat! Its opponent turn';
+  document.getElementById(data).className += ' hit';
 });
 
 socket.on('hit mine', function(data) {
-  document.getElementById('msg').innerText = 'your enemy hit a boat of yours! Its your turn';
+  document.getElementById('msg').innerText = 'your enemy hit on ' + data.split('@')[1] + '! Its your turn';
 });
 
 socket.on('miss enemy', function(data) {
   document.getElementById('msg').innerText = 'you miss! Its opponent turn';
+  document.getElementById(data).className += ' visited';
 });
 
 socket.on('miss mine', function(data) {
-  document.getElementById('msg').innerText = 'your enemy missed! Its your turn';
+  document.getElementById('msg').innerText = 'your enemy missed in ' + data.split('@')[1] + '! Its your turn';
 });
 
 socket.on('sink enemy', function(data) {
   document.getElementById('msg').innerText = 'you sinked an enemies boat! Its your opponent turn';
+  document.getElementById(data).className += ' hit';
 });
 
 socket.on('sink mine', function(data) {
@@ -30,10 +33,14 @@ socket.on('sink mine', function(data) {
 
 socket.on('won enemy', function(data) {
   document.getElementById('msg').innerText = 'you won!';
-  window.location.href = '/home'
+  setTimeout(function(){
+    window.location.href = '/home';
+  }, 5000);
 });
 
 socket.on('won mine', function(data) {
   document.getElementById('msg').innerText = 'you lose';
-  window.location.href = '/home'
+  setTimeout(function(){
+    window.location.href = '/home';
+  }, 5000);
 });
