@@ -58,7 +58,7 @@ Board = model["class"]('Board', {
           }
         }
       }
-      return this.ships.length == 0 ? 'won!' : 'miss';
+      return this.ships.length == 0 ? 'won' : 'miss';
     },
     getSeenPositions: function () {
       
