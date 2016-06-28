@@ -23,7 +23,6 @@ Board = model["class"]('Board', {
   methods: {
     populateBoard: function(ships) {
       for (var i = 0; i < ships.length; i++){
-        console.log(ships);
         var ship = ships[i];
         var frontLetter = ship.front[0];
         var endLetter = ship.end[0];
@@ -47,7 +46,19 @@ Board = model["class"]('Board', {
       }
     },
     hit: function (position) {
-
+      for (var i = 0; i < this.ships.length; i++) {
+        for (var j = 0; j < this.ships[i].length; j++) {
+          if(this.ships[i][j] == position) {
+            this.ships[i].splice(j, 1);
+            if (this.ships[i].length == 0) {
+              this.ships.splice(i, 1);
+              return 'sink';
+            }
+            return 'hit'
+          }
+        }
+      }
+      return this.ships.length == 0 ? 'won!' : 'miss';
     },
     getSeenPositions: function () {
       

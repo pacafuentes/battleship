@@ -63,12 +63,17 @@ var io =  {
     socket.on('shot', function (data) {
       var shot = data.split('@')[1];
       var shotResult;
-      if (player == 1 && games.get(gameId).turn == 1) {
-        shotResult = games.get(gameId).player2.board.hit(shot);
-        console.log(shotResult);
-      } else {
-        shotResult = games.get(gameId).player1.board.hit(shot);
-        console.log(shotResult);
+      var game = games.get(gameId);
+      if (player == 1 && game.turn == 1) {
+        shotResult = game.player2.board.hit(shot);
+        game.turn = 2;
+        game.player1.socket.emit(shotResult);
+        game.player2.socket.emit(shotResult);
+      } else if (player == 2 && game.turn == 2) {
+        shotResult = game.player1.board.hit(shot);
+        game.turn = 1;
+        game.player1.socket.emit(shotResult);
+        game.player2.socket.emit(shotResult);
       }
     });
   }
