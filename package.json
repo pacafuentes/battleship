@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "run": "node ./bin/www",
+    "run": "node ./bin/wwwio",
     "start": "./node_modules/nodemon/bin/nodemon.js ./bin/wwwio"
   },
   "dependencies": {
