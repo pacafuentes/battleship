@@ -92,13 +92,11 @@ angular.module('board', ['ngDragDrop', 'ui.bootstrap'])
         }
       });
     }
-    
-    
-    document.getElementById('readyBtn').addEventListener('click', function(e){
+    var readyFunction = function(e){
       var ships = document.getElementsByClassName('ship');
 
       for (var i = 0; i < ships.length; i++) {
-        $('#' + ships[i].id).draggable( "option", "disabled", true );;
+        $('#' + ships[i].id).draggable( "option", "disabled", true );
       }
 
       var ship1 = document.getElementById('ship1');
@@ -141,5 +139,9 @@ angular.module('board', ['ngDragDrop', 'ui.bootstrap'])
       var data = [ship1Position, ship2Position, ship3Position, ship4Position, ship5Position, ship6Position];
 
       socket.emit('addShips', {ships: data, user: 'paca'});
-    });
+
+      e.srcElement.removeEventListener('click', readyFunction);
+    };
+
+    document.getElementById('readyBtn').addEventListener('click', readyFunction);
   });
