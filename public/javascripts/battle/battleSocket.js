@@ -10,6 +10,7 @@ socket.on('hit enemy', function(data) {
 });
 
 socket.on('hit mine', function(data) {
+  document.getElementById(data.split('@')[1]).className += ' hit';
   document.getElementById('msg').innerText = 'your enemy hit on ' + data.split('@')[1] + '! Its your turn';
 });
 
@@ -19,6 +20,7 @@ socket.on('miss enemy', function(data) {
 });
 
 socket.on('miss mine', function(data) {
+  document.getElementById(data.split('@')[1]).className += ' visited';
   document.getElementById('msg').innerText = 'your enemy missed in ' + data.split('@')[1] + '! Its your turn';
 });
 
