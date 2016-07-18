@@ -6,7 +6,7 @@ angular.module('index', [])
           window.location.href = response.redirectTo;
         })
         .error(function(response) {
-          
+          //show err msg
         });
     };
 

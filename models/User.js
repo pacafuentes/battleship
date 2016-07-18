@@ -15,7 +15,8 @@ User = model["class"]('User', {
       required: true
     },
     lastName: {
-      type: String
+      type: String,
+      required: true
     },
     picture: {
       type: String
@@ -24,10 +25,12 @@ User = model["class"]('User', {
       type: ObjectId
     },
     played: {
-      type: Number
+      type: Number,
+      required: true
     },
     won: {
-      type: Number
+      type: Number,
+      required: true
     }
   }
 });
