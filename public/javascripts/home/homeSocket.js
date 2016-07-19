@@ -8,6 +8,7 @@ var connectSocket = function () {
   });
 
   socket.on('battle', function (gameId) {
+    document.cookie = 'gameId=' + gameId;
     window.location.href = '/game/' + gameId;
   });
 };

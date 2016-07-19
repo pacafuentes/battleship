@@ -2,9 +2,11 @@ var Game = require('./models/Game');
 var User = require('./models/User');
 var Board = require('./models/Board');
 var Crypto = require("crypto");
+var HashMap = require('hashmap');
 
 
 var waitingSocket;
+var players =  new HashMap();
 
 var io =  {
   home: function (socket) {
@@ -21,15 +23,24 @@ var io =  {
         var gameId = Crypto.createHash('md5')
           .update(waitingSocket.userId + userId + new Date().toString())
           .digest('hex');
-        
+
+        var board1 = new Board({seenPositions: []});
+        var board2 = new Board({seenPositions: []});
         var game = new Game({
           id: gameId,
           player1Id: waitingSocket.userId,
-          board1Id: new Board(),
+          board1Id: board1,
           player2Id: userId,
-          board2Id: new Board()
+          board2Id: board2,
+          finished: false,
+          playersReady: 0
         });
 
+        players.set(gameId + waitingSocket.userId, socket);
+        players.set(gameId + userId, waitingSocket.socket);
+
+        board1.save(function (err) { if (err) console.log(err) });
+        board2.save(function (err) { if (err) console.log(err) });
         game.save(function (err) { if (err) console.log(err) });
         
         waitingSocket.socket.emit('battle', gameId);
@@ -40,29 +51,16 @@ var io =  {
   },
   
   game: function (socket) {
-
     socket.on('addShips', function (data) {
-      var boardInfo = {
-        seenPositions: []
-      };
-      var board = new Board(boardInfo);
-      board.populateBoard(data.ships);
-      var game = games.get(gameId);
-
-      if (player == 1) {
-        game.player1.board = board;
-        if (game.player2.board) {
-          game.player1.socket.emit('msg', 'your turn');
-          game.player2.socket.emit('msg', 'opponents turn');
-        } else game.player1.socket.emit('msg', 'waiting for opponent...');
-      } else {
-        game.player2.board = board;
-        if (game.player1.board) {
-          game.player1.socket.emit('msg', 'your turn');
-          game.player2.socket.emit('msg', 'opponents turn');
-        } else game.player2.socket.emit('msg', 'waiting for opponent');
-      }
-
+      Game.findOne({'id': data.gameId, finished: false}, function (err, game) {
+        Board.findOne({'_id': game.getBoard(data.userId)}, function (err, board) {
+          board.populateBoard(data.ships);
+          board.save(function (err) { if (err) console.log(err) });
+        });
+        game.playersReady++;
+        game.save(function (err) { if (err) console.log(err) });
+        if(game.ready()) players.get(data.gameId + data.userId).emit('msg', 'ready');
+      });
     });
 
     socket.on('shot', function (data) {

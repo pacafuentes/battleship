@@ -138,10 +138,25 @@ angular.module('board', ['ngDragDrop', 'ui.bootstrap'])
 
       var data = [ship1Position, ship2Position, ship3Position, ship4Position, ship5Position, ship6Position];
 
-      socket.emit('addShips', {ships: data, user: 'paca'});
+      socket.emit('addShips', {ships: data, userId: getCookie('userId'), gameId: getCookie('gameId')});
 
       e.srcElement.removeEventListener('click', readyFunction);
     };
 
     document.getElementById('readyBtn').addEventListener('click', readyFunction);
   });
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length,c.length);
+    }
+  }
+  return "";
+}
