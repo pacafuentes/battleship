@@ -1,13 +1,19 @@
 extends layout
 
-block content
-  div(ng-app="index" ng-controller="indexCtrl")
-    h1= title
-    p Welcome to #{title}
+block styles
+  link(rel='stylesheet', href='/stylesheets/index.css')
+  link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css")
 
-    fb:login-button(scope="public_profile,email" onlogin="checkLoginState();")
-    div(id="status")
+block content
+  div.container
+    div.center
+      div(ng-app="index" ng-controller="indexCtrl")
+        div.title-container
+          h1= title
+          fb:login-button(scope="public_profile,email" onlogin="checkLoginState();" data-max-rows="1" data-size="xlarge")
+          div(id="status")
 
 block scripts
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js")
   script(src="/javascripts/index/index.js")
   script(src="/javascripts/index/fb.js")

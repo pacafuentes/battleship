@@ -116,7 +116,19 @@ var io =  {
               board.markModified('ships');
               board.save(function (err) {
                 if (err) return console.log(err);
-                if (shotResult == 'won') game.finished = true;
+                if (shotResult == 'won') {
+                  game.finished = true;
+                  User.findOne({'id': userId}, function(err, user) {
+                    user.played++;
+                    user.won++;
+                    user.save(function(err){ if(err) console.log(err) });
+                  });
+
+                  User.findOne({'id': game.getOpponentId(userId)}, function(err, user) {
+                    user.played++;
+                    user.save(function(err){ if(err) console.log(err) });
+                  });
+                }
                 game.changeTurn();
                 game.save(function (err) {
                   if (err) console.log(err);

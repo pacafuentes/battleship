@@ -1,6 +1,7 @@
 extends layout
 
 block styles
+  link(rel='stylesheet', href='/stylesheets/style.css')
 
 block content
   div Double click on a ship to rotate it
@@ -29,7 +30,6 @@ block content
 
 
 block scripts
-  script(src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
   script(src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js")
   script(src="../javascripts/external/angular-dragdrop.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.js")

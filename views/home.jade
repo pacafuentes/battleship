@@ -1,13 +1,33 @@
 extends layout-auth
 
+block styles
+  link(rel='stylesheet', href='/stylesheets/home.css')
+  link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css")
+
 block content
-  div
-    p Welcome
-      span=user.firstName
-  div
-    div(id="msg")
-    img(src!=user.picture)
-  button(id="playButton") Play!
+  nav.blue-grey.lighten-1
+    div.nav-wrapper
+      a.brand-logo.right(href="#")
+        img.circle.responsive-img(src!=user.picture)
+      ul.left.hide-on-med-and-down(id="nav-mobile")
+        li
+          a Battleship
+
+  div.row
+    div.col.s6
+      div.center
+        h1 Welcome
+          span=user.firstName
+        div(id="msg")
+        button.battle.blue-grey.lighten-1.btn.waves-effect.waves-light(id="playButton") Battle!
+          i.material-icons.right
+    div.col.s6
+      div.center
+        h1 Stats
+        div Played:
+          span=user.played
+        div Won:
+          span=user.won
 
 block scripts
   script(src="/socket.io/socket.io.js")

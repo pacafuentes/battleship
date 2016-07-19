@@ -5,7 +5,7 @@ router = express.Router();
 controllers = require('./controllers');
 
 router.get('/', function (req, res) {
-  res.render('index', { title: 'Battleship!' });
+  res.render('index', { title: 'Battleship' });
 });
 
 router.post('/login', controllers.user.login);

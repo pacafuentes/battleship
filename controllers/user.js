@@ -29,7 +29,7 @@ module.exports = {
     User.findOne({'id': req.session.user.id}, function (err, user) {
         if (user) {
           res.cookie('userId', user.id);
-          return res.render('home', {user: req.session.user});
+          return res.render('home', {user: user});
         }
         homeRedirect(res);
       });
