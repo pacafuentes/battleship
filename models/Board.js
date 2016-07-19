@@ -14,6 +14,9 @@ Board = model["class"]('Board', {
     },
     ships: {
       type: Array
+    },
+    immutableShips: {
+      type: Array
     }
   },
 
@@ -41,8 +44,10 @@ Board = model["class"]('Board', {
           this.ships.push(shipPosition);
         }
       }
+      this.immutableShips = this.ships;
     },
     hit: function (position) {
+      this.seenPositions.push(position);
       for (var i = 0; i < this.ships.length; i++) {
         for (var j = 0; j < this.ships[i].length; j++) {
           if(this.ships[i][j] == position) {
@@ -55,11 +60,9 @@ Board = model["class"]('Board', {
           }
         }
       }
-      return this.ships.length == 0 ? 'won' : 'miss';
+      return 'miss';
     },
-    getSeenPositions: function () {
-      
-    }
+    getSeenPositions: function () { return this.seenPositions}
   }
 });
 

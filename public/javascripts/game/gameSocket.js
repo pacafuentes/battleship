@@ -31,6 +31,7 @@ socket.on('sink enemy', function(data) {
 });
 
 socket.on('sink mine', function(data) {
+  document.getElementById(data.split('@')[1]).className += ' hit';
   document.getElementById('msg').innerText = 'your enemy sinked a boat of yours! Its your turn';
 });
 
@@ -98,3 +99,5 @@ var readyFunction = function(e){
 
   e.srcElement.removeEventListener('click', readyFunction);
 };
+
+document.getElementById('readyBtn').addEventListener('click', readyFunction);

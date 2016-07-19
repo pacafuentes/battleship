@@ -34,17 +34,22 @@ Game = model["class"]('Game', {
     playersReady : {
       type: Number,
       required: true
+    },
+    turn : {
+      type: String
     }
   },
 
   methods: {
     getBoard: function (userId) { return userId == this.player1Id ? this.board1Id : this.board2Id; },
-    setBoard: function (userId, boardId) { 
-      if (userId == this.player1Id) this.board1Id = boardId;
-      else this.board2Id = boardId
-    },
+    enemyBoard: function (userId) { return userId == this.player1Id ? this.board2Id : this.board1Id; },
     ready: function () { return this.playersReady == 2; },
-    getOpponentId: function(userId) { return userId == this.player1Id ? this.player2Id : this.player1Id; }
+    getOpponentId: function (userId) { return userId == this.player1Id ? this.player2Id : this.player1Id; },
+    isMyTurn: function (userId) { return userId == this.turn},
+    changeTurn : function () { 
+      if (this.turn == this.player1Id) this.turn = this.player2Id;
+      else this.turn = this.player1Id;
+    }
   }
 });
 
