@@ -14,6 +14,12 @@ block content
           a Battleship
 
   div Double click on a ship to rotate it
+  div
+    p=opponent.firstName
+    p=opponent.played
+    p=opponent.won
+  img.circle.responsive-img(src!=opponent.picture)
+
   div(id="msg") Place you ships
   div.boards(ng-app="board" ng-controller="boardCtrl")
     button(id="readyBtn") ready!

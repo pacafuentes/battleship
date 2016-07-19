@@ -21,6 +21,8 @@ table > tbody > tr {
 table {
   display: inline-block !important;
   width: inherit !important;
+  border-collapse: separate !important;
+  border-spacing: 2px !important;;
 }
 
 .sea {
@@ -97,5 +99,9 @@ table {
 .ship.six.rotated {
   width: 50px;
   height: 150px;
+}
+
+.game-info {
+  display: inline-block;
 }
 
