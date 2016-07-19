@@ -2,6 +2,10 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.boards {
+  width: 1350px;
+}
+
 a {
   color: #00B7FF;
 }
@@ -10,12 +14,13 @@ table > tbody >tr > th {
   width: 50px;
 }
 
-table > tbody >tr {
-  height: 50px;
+table > tbody > tr {
+  !important; height: 50px;
 }
 
 table {
-  display: inline-block;
+  display: inline-block !important;
+  width: inherit !important;
 }
 
 .sea {

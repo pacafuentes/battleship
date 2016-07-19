@@ -7,7 +7,7 @@ module.exports = {
       console.log(game);
       if (game) {
         res.cookie('gameId', gameId);
-        res.render('game');
+        res.render('game', {user: req.session.user});
       }
       else res.set('Location', '/home').status(307).send();
     });

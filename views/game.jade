@@ -1,12 +1,21 @@
 extends layout
 
 block styles
-  link(rel='stylesheet', href='/stylesheets/style.css')
+  link(rel='stylesheet', href='/stylesheets/game.css')
+  link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css")
 
 block content
+  nav.blue-grey.lighten-1
+    div.nav-wrapper
+      a.brand-logo.right(href="#")
+        img.circle.responsive-img(src!=user.picture)
+      ul.left.hide-on-med-and-down(id="nav-mobile")
+        li
+          a Battleship
+
   div Double click on a ship to rotate it
   div(id="msg") Place you ships
-  div.container(ng-app="board" ng-controller="boardCtrl")
+  div.boards(ng-app="board" ng-controller="boardCtrl")
     button(id="readyBtn") ready!
     div
       table(id="myBoard")
@@ -14,7 +23,7 @@ block content
 
       table(id="enemyBoard")
         tbody.board
-
+    
     div(style="width: 200px; height: 50px;")
       img(src="/images/ship1.png" class="ship one" id="ship1" data-drag="true" data-jqyoui-options="{revert: 'invalid', revertDuration: 200, grid: [55, 52], snap: true}" jqyoui-draggable="{animate: true}")
     div(style="width: 150px; height: 50px;")
