@@ -1,40 +1,45 @@
 var Game = require('./models/Game');
 var User = require('./models/User');
 var Board = require('./models/Board');
-var HashMap = require('hashmap');
 var Crypto = require("crypto");
 
-var games = new HashMap();
+
 var waitingSocket;
 
 var io =  {
-  handler : function (socket) {
-    var session = socket.handshake.headers.cookie.split('session=')[1].split(';')[0];
-    var gameId = Crypto.randomBytes(10).toString('hex');
-    var player;
+  home: function (socket) {
 
-    if (!waitingSocket) {
-      player = 1;
-      waitingSocket = {socket: socket, session: session, gameId: gameId};
-      socket.emit('waiting opponent');
-    } else if (session != waitingSocket.session) {
-      player = 2;
-      gameId = waitingSocket.gameId;
-      games.set(gameId,{
-        player1: {
-          socket: waitingSocket.socket,
-          board: undefined
-        },
-        player2: {
-          socket: socket,
-          board: undefined
-        },
-        turn: 1
+    var userId = socket.handshake.headers.cookie.split('userId=')[1].split(';')[0];
+    if (!waitingSocket) 
+      return User.findOne({'id' : userId}, function (err, user) {
+        if (user) waitingSocket = { userId: userId, socket: socket};
+        socket.emit('waiting opponent');
       });
-      waitingSocket.socket.emit('battle');
-      socket.emit('battle');
-      waitingSocket = undefined;
-    }
+    
+    User.findOne({'id': userId}, function (err, user) {
+      if (user) {
+        var gameId = Crypto.createHash('md5')
+          .update(waitingSocket.userId + userId + new Date().toString())
+          .digest('hex');
+        
+        var game = new Game({
+          id: gameId,
+          player1Id: waitingSocket.userId,
+          board1Id: new Board(),
+          player2Id: userId,
+          board2Id: new Board()
+        });
+
+        game.save(function (err) { if (err) console.log(err) });
+        
+        waitingSocket.socket.emit('battle', gameId);
+        socket.emit('battle', gameId);
+        waitingSocket = null;
+      }
+    })
+  },
+  
+  game: function (socket) {
 
     socket.on('addShips', function (data) {
       var boardInfo = {

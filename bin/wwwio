@@ -9,6 +9,7 @@ var debug = require('debug')('battleship:server');
 var http = require('http');
 var ws = require('../io');
 
+
 /**
  * Get port from environment and store in Express.
  */
@@ -27,7 +28,13 @@ var server = http.createServer(app);
  */
 var io = require('socket.io')(server);
 
-io.on('connection', ws.handler);
+var home = io
+  .of('/home')
+  .on('connection', ws.home);
+
+var battle = io
+  .of('/game')
+  .on('connection', ws.game);
 
 /**
  * Listen on provided port, on all network interfaces.

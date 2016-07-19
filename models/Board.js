@@ -6,9 +6,6 @@ Mixed = require('mongoose').Schema.Types.Mixed;
 
 Board = model["class"]('Board', {
   attributes: {
-    playerId: {
-      type: String
-    },
     gameId: {
       type: String
     },

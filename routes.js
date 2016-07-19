@@ -12,8 +12,7 @@ router.post('/login', controllers.user.login);
 
 router.get('/home', controllers.user.home);
 
-router.get('/game', controllers.game.create);
+router.get('/game/:id', controllers.game.create);
 
-router.post('/game/board', controllers.game.addBoard);
 
 module.exports = router;

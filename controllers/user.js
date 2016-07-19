@@ -18,19 +18,19 @@ module.exports = {
 
         user = new User(userInfo);
         user.save(function (err) { if (err) return res.status(500); });
-
-        console.log(user);
-        req.session.user = user;
       }
+      req.session.user = user;
+      res.status(200).json({redirectTo: '/home'}).send();
     });
-    return res.status(200).json({redirectTo: '/home'}).send();
   },
 
   home: function (req, res) {
-    if (!req.session.user) homeRedirect(res);
-
+    if (!req.session.user) return homeRedirect(res);
     User.findOne({'id': req.session.user.id}, function (err, user) {
-        if (user) return res.render('home', {user: req.session.user});
+        if (user) {
+          res.cookie('userId', user.id);
+          return res.render('home', {user: req.session.user});
+        }
         homeRedirect(res);
       });
     }

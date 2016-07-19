@@ -1,4 +1,4 @@
-var socket = io().connect('http://localhost:3000');
+var socket = io(document.domain + ':3000' + '/game');
 
 socket.on('msg', function (data) {
   document.getElementById('msg').innerText = data;
